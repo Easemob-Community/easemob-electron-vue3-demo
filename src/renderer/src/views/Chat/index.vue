@@ -4,7 +4,7 @@ import { useStore } from 'vuex';
 import { ElMessage } from 'element-plus';
 import { EMClient } from '@/IM';
 import { CHAT_TYPE } from '@/IM/constant';
-import NavBar from '@/views/Chat/components/NavBar';
+import NavBar from '@/views/Chat/components/NavBar/index.vue';
 
 // /* CallKit */
 // import EaseCallKit from '@/components/EaseCallKit'

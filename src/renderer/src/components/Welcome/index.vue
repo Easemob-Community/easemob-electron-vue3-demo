@@ -1,6 +1,6 @@
 <script setup>
-const tang = require('@/assets/images/Group 78@3x.png');
-const maskGroup = require('@/assets/images/Mask_group2.png');
+import tang from '@/assets/images/Group 78@3x.png';
+import maskGroup from '@/assets/images/Mask_group2.png';
 </script>
 <template>
   <div class="app_contanier">

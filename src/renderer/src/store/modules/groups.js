@@ -1,6 +1,8 @@
 import { ElMessage } from 'element-plus'
 import { GROUP_OPERATION_TYPE, GROUP_ROLE_TYPE } from '@/IM/constant'
 import { EMClient } from '@/IM'
+import _ from 'lodash'
+
 const Groups = {
   state: {
     groupsInfos: {}, //计划废弃

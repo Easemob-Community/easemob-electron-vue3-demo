@@ -6,6 +6,7 @@ import { MESSAGE_TYPE, CHAT_TYPE } from '@/IM/constant';
 import { useGetUserMapInfo, useUserInfoExt } from '@/hooks';
 import store from '@/store';
 import { handleSDKErrorNotifi } from '@/utils/handleSomeData';
+import _ from 'lodash';
 //vue at
 import VueAt from 'vue-at/dist/vue-at-textarea'; // for textarea
 import { EMClient } from '@/IM';
@@ -193,40 +194,20 @@ defineExpose({
 </script>
 <template>
   <template v-if="chatType === CHAT_TYPE.SINGLE">
-    <textarea
-      ref="editable"
-      v-model="textContent"
-      class="chat_content_editable"
-      spellcheck="false"
-      contenteditable="true"
-      placeholder="请输入消息内容..."
-      @keydown="onTextInputKeyDown"
-      @paste="dispatchPasteEvent"
-    >
+    <textarea ref="editable" v-model="textContent" class="chat_content_editable" spellcheck="false"
+      contenteditable="true" placeholder="请输入消息内容..." @keydown="onTextInputKeyDown" @paste="dispatchPasteEvent">
     </textarea>
   </template>
   <template v-else-if="chatType === CHAT_TYPE.GROUP">
     <vue-at :members="atMembersList" name-key="text" @insert="onInsert">
-      <textarea
-        ref="editable"
-        v-model="textContent"
-        class="chat_content_editable"
-        spellcheck="false"
-        contenteditable="true"
-        placeholder="请输入消息内容..."
-        @keydown="onTextInputKeyDown"
-        @paste="dispatchPasteEvent"
-      >
+      <textarea ref="editable" v-model="textContent" class="chat_content_editable" spellcheck="false"
+        contenteditable="true" placeholder="请输入消息内容..." @keydown="onTextInputKeyDown" @paste="dispatchPasteEvent">
       </textarea>
     </vue-at>
   </template>
 
-  <el-button
-    :class="[textContent === '' ? 'no_content_send_btn' : 'chat_send_btn']"
-    type="primary"
-    @click="sendTextMessage"
-    >发送</el-button
-  >
+  <el-button :class="[textContent === '' ? 'no_content_send_btn' : 'chat_send_btn']" type="primary"
+    @click="sendTextMessage">发送</el-button>
 </template>
 
 <style lang="scss" scoped>
@@ -243,6 +224,7 @@ defineExpose({
   font-size: 14px;
   caret-color: #2454ff;
 }
+
 .no_content_send_btn {
   position: absolute;
   bottom: 20px;

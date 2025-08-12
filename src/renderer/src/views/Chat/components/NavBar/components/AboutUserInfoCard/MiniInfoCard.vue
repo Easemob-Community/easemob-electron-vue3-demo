@@ -9,8 +9,8 @@ const userInfos = computed(() => {
 const loginUserId = computed(() => {
   return store.state.loginUserInfo.hxId;
 });
-const bodyIcon = require('@/assets/images/gender/Group76.png');
-const girlIcon = require('@/assets/images/gender/Group77.png');
+import bodyIcon from '@/assets/images/gender/Group76.png';
+import girlIcon from '@/assets/images/gender/Group77.png';
 const genderIcon = {
   1: bodyIcon,
   2: girlIcon,
@@ -23,12 +23,9 @@ const genderIcon = {
       <div class="name_box">
         <span class="nickname">{{
           userInfos.nickname ? userInfos.nickname : loginUserId
-        }}</span>
-        <img
-          v-if="userInfos.gender && genderIcon[userInfos.gender]"
-          class="gender"
-          :src="genderIcon[userInfos.gender]"
-        />
+          }}</span>
+        <img v-if="userInfos.gender && genderIcon[userInfos.gender]" class="gender"
+          :src="genderIcon[userInfos.gender]" />
       </div>
     </div>
     <el-divider style="margin: 0" />

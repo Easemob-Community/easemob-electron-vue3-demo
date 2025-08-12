@@ -10,8 +10,8 @@ import defaultAvatar from '@/assets/images/loginIcon.png';
 const avatarBaseUrl =
   'https://download-sdk.oss-cn-beijing.aliyuncs.com/downloads/IMDemo/avatar/';
 /* 性别相关 */
-const bodyIcon = require('@/assets/images/gender/Group76.png');
-const girlIcon = require('@/assets/images/gender/Group77.png');
+import bodyIcon from '@/assets/images/gender/Group76.png';
+import girlIcon from '@/assets/images/gender/Group77.png';
 const genderIcon = {
   1: bodyIcon,
   2: girlIcon,
@@ -85,15 +85,8 @@ defineExpose({
 });
 </script>
 <template>
-  <el-dialog
-    class="edit_userinfo_diglog"
-    v-model="dialogVisible"
-    width="366px"
-    :show-close="false"
-    :destroy-on-close="true"
-    @close="initUserInfosDiglog"
-    @open="setUserInfos"
-  >
+  <el-dialog class="edit_userinfo_diglog" v-model="dialogVisible" width="366px" :show-close="false"
+    :destroy-on-close="true" @close="initUserInfosDiglog" @open="setUserInfos">
     <template #header>
       <div class="infor_header">
         <el-icon class="el_icon_right" @click="dialogVisible = false">
@@ -103,12 +96,8 @@ defineExpose({
     </template>
     <template #default>
       <div class="infor_main">
-        <el-avatar
-          class="infor_avatar"
-          :size="80"
-          :src="userInfos.avatarurl ? userInfos.avatarurl : defaultAvatar"
-          fit="fit"
-        >
+        <el-avatar class="infor_avatar" :size="80" :src="userInfos.avatarurl ? userInfos.avatarurl : defaultAvatar"
+          fit="fit">
         </el-avatar>
         <div class="infor_edit_text">
           <p v-if="!isEdit" @click="isEdit = true">编辑</p>
@@ -127,12 +116,8 @@ defineExpose({
             </div>
             <div v-if="isEdit" class="infor_choose_avatar">
               <template v-for="avatarNum in 9" :key="avatarNum">
-                <el-avatar
-                  @click="chooseAvatar(avatarNum)"
-                  shape="circle"
-                  :size="25"
-                  :src="`${avatarBaseUrl}Image${avatarNum}.png`"
-                />
+                <el-avatar @click="chooseAvatar(avatarNum)" shape="circle" :size="25"
+                  :src="`${avatarBaseUrl}Image${avatarNum}.png`" />
               </template>
             </div>
           </div>
@@ -143,16 +128,8 @@ defineExpose({
                 userInfos.nickname || '暂无昵称'
               }}</span>
               <span class="content" v-else>
-                <el-input
-                  class="input_style"
-                  v-model="userInfos.nickname"
-                  placeholder="请输入您的昵称~"
-                  :maxlength="10"
-                  show-word-limit
-                  clearable
-                  size="small"
-                  :prefix-icon="EditPen"
-                />
+                <el-input class="input_style" v-model="userInfos.nickname" placeholder="请输入您的昵称~" :maxlength="10"
+                  show-word-limit clearable size="small" :prefix-icon="EditPen" />
               </span>
             </div>
             <div class="infor_content_main_item">
@@ -165,15 +142,8 @@ defineExpose({
                 userInfos.birth || '未知'
               }}</span>
               <span class="content" v-else>
-                <el-date-picker
-                  class="input_style"
-                  v-model="userInfos.birth"
-                  type="date"
-                  placeholder="选择你的生日"
-                  size="small"
-                  format="YYYY-MM-DD"
-                  value-format="YYYY-MM-DD"
-                />
+                <el-date-picker class="input_style" v-model="userInfos.birth" type="date" placeholder="选择你的生日"
+                  size="small" format="YYYY-MM-DD" value-format="YYYY-MM-DD" />
               </span>
             </div>
             <div class="infor_content_main_item">
@@ -195,16 +165,8 @@ defineExpose({
                 userInfos.phone || '未知'
               }}</span>
               <span class="content" v-else>
-                <el-input
-                  class="input_style"
-                  v-model="userInfos.phone"
-                  placeholder="请输入您的电话~"
-                  :maxlength="20"
-                  show-word-limit
-                  clearable
-                  size="small"
-                  :prefix-icon="Phone"
-                />
+                <el-input class="input_style" v-model="userInfos.phone" placeholder="请输入您的电话~" :maxlength="20"
+                  show-word-limit clearable size="small" :prefix-icon="Phone" />
               </span>
             </div>
             <div class="infor_content_main_item">
@@ -213,43 +175,19 @@ defineExpose({
                 userInfos.mail || '未知'
               }}</span>
               <span class="content" v-else>
-                <el-input
-                  class="input_style"
-                  v-model="userInfos.mail"
-                  placeholder="请输入您的邮箱~"
-                  :maxlength="50"
-                  clearable
-                  size="small"
-                  :prefix-icon="Message"
-                />
+                <el-input class="input_style" v-model="userInfos.mail" placeholder="请输入您的邮箱~" :maxlength="50" clearable
+                  size="small" :prefix-icon="Message" />
               </span>
             </div>
             <!-- 编辑状态下展示签名内容 -->
-            <div
-              v-if="isEdit"
-              class="infor_content_main_item infor_content_main_sign"
-            >
+            <div v-if="isEdit" class="infor_content_main_item infor_content_main_sign">
               <span class="label">签名</span>
-              <span
-                class="content"
-                v-if="!isEdit"
-                style="white-space: break-word"
-                >{{ userInfos.sign || '无个性，不签名！' }}</span
-              >
+              <span class="content" v-if="!isEdit" style="white-space: break-word">{{ userInfos.sign || '无个性，不签名！'
+              }}</span>
               <span class="content" style="border: none" v-else>
-                <el-input
-                  class="textarea_style"
-                  v-model="userInfos.sign"
-                  type="textarea"
-                  :row="2"
-                  placeholder="请输入您的个性签名~"
-                  :maxlength="40"
-                  show-word-limit
-                  clearable
-                  size="small"
-                  :prefix-icon="Flag"
-                  resize="none"
-                />
+                <el-input class="textarea_style" v-model="userInfos.sign" type="textarea" :row="2"
+                  placeholder="请输入您的个性签名~" :maxlength="40" show-word-limit clearable size="small" :prefix-icon="Flag"
+                  resize="none" />
               </span>
             </div>
           </div>
@@ -411,12 +349,12 @@ defineExpose({
   }
 }
 
-:deep(.input_style) > .el-input__wrapper {
+:deep(.input_style)>.el-input__wrapper {
   border-radius: 5px;
   box-shadow: none;
 }
 
-:deep(.textarea_style) > .el-textarea__inner {
+:deep(.textarea_style)>.el-textarea__inner {
   border-radius: 5px;
   // box-shadow: none;
 }

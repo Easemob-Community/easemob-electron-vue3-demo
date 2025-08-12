@@ -4,10 +4,16 @@
     <meta charset="UTF-8" />
     <title>Electron</title>
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"
-    />
+<meta
+  http-equiv="Content-Security-Policy"
+  content="
+    default-src 'self';
+    script-src 'self' 'unsafe-eval';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data: blob: https://download-sdk.oss-cn-beijing.aliyuncs.com https://*.easemob.com http://*.easemob.com;
+    connect-src 'self' wss://* ws://* https://rs.easemob.com https://*.easemob.com http://*.easemob.com ;
+  "
+/>
   </head>
 
   <body>

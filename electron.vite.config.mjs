@@ -12,6 +12,7 @@ export default defineConfig({
   renderer: {
     resolve: {
       alias: {
+        '@': resolve('src/renderer/src'), // 添加@别名
         '@renderer': resolve('src/renderer/src')
       }
     },

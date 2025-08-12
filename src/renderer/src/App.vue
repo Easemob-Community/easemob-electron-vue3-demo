@@ -1,24 +1,61 @@
 <script setup>
-import Versions from './components/Versions.vue'
-
-const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+import { mountAllEMListener } from '@/IM/listener';
+import { EMClient } from '@/IM';
+import ring from '@/assets/ring.mp3';
+import { ElMessage } from 'element-plus';
+/* 【重要】挂载IM相关监听回调。 */
+mountAllEMListener();
+/* 重新登陆 */
+//读取本地EASEIM_loginUser
+const EASEIM_loginUser = window.localStorage.getItem('EASEIM_loginUser');
+const loginUserFromStorage = JSON.parse(EASEIM_loginUser) || {};
+const handleRelogin = async () => {
+  try {
+    await EMClient.open({
+      username: loginUserFromStorage.user,
+      accessToken: loginUserFromStorage.accessToken,
+    });
+  } catch (error) {
+    ElMessage({
+      type: 'error',
+      center: true,
+      message: error.message,
+    });
+  }
+};
+if (loginUserFromStorage?.user && loginUserFromStorage?.accessToken) {
+  handleRelogin();
+}
 </script>
-
 <template>
-  <img alt="logo" class="logo" src="./assets/electron.svg" />
-  <div class="creator">Powered by electron-vite</div>
-  <div class="text">
-    Build an Electron app with
-    <span class="vue">Vue</span>
-  </div>
-  <p class="tip">Please try pressing <code>F12</code> to open the devTool</p>
-  <div class="actions">
-    <div class="action">
-      <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">Documentation</a>
-    </div>
-    <div class="action">
-      <a target="_blank" rel="noreferrer" @click="ipcHandle">Send IPC</a>
-    </div>
-  </div>
-  <Versions />
+  <router-view v-slot="{ Component }">
+    <transition name="slide-fade" mode="out-in" :duration="{ enter: 500, leave: 300 }">
+      <component :is="Component" />
+    </transition>
+  </router-view>
+  <!-- 铃声标签 -->
+  <audio id="ring" :src="ring" controls hidden></audio>
 </template>
+
+<style type="scss">
+@import './styles/reset/reset.css';
+@import './styles/iconfont/iconfont.css';
+
+/* .slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.3s;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  opacity: 0.3;
+}
+
+.slide-fade-enter-to,
+.slide-fade-leave-from {
+  opacity: 1;
+} */
+</style>
